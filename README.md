@@ -14,33 +14,33 @@ This project contains the following containers:
 * spark: Spark Master.
     * Image: bitnami/spark:3.1.2
     * Port: 8181
-    * References: 
+    * References:
       * https://github.com/bitnami/bitnami-docker-spark
       * https://hub.docker.com/r/bitnami/spark/tags/?page=1&ordering=last_updated
 
 * spark-worker-N: Spark workers. You can add workers copying the containers and changing the container name inside the docker-compose.yml file.
     * Image: bitnami/spark:3.1.2
-    * References: 
+    * References:
       * https://github.com/bitnami/bitnami-docker-spark
       * https://hub.docker.com/r/bitnami/spark/tags/?page=1&ordering=last_updated
 
 * jupyter-spark: Jupyter notebook with pyspark for interactive development.
   * Image: jupyter/pyspark-notebook:spark-3.1.2
   * Port: 8888
-  * References: 
+  * References:
     * https://hub.docker.com/layers/jupyter/pyspark-notebook/spark-3.1.2/images/sha256-37398efc9e51f868e0e1fde8e93df67bae0f9c77d3d3ce7fe3830faeb47afe4d?context=explore
     * https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-pyspark-notebook
     * https://hub.docker.com/r/jupyter/pyspark-notebook/tags/
+
+##DATASET is available in :
+![](./notebooks/ecommerce_data)
+
 
 ## Architecture components
 
 ![](./doc/architecture.png "Architecture")
 
 ## Setup
-
-### Clone project
-
-    $ git clone https://github.com/cordon-thiago/airflow-spark
 
 ### Build airflow Docker
 
@@ -95,7 +95,7 @@ Postgres - Database airflow:
 
 Jupyter Notebook: http://127.0.0.1:8888
   * For Jupyter notebook, you must copy the URL with the token generated when the container is started and paste in your browser. The URL with the token can be taken from container logs using:
-  
+
         $ docker logs -f docker_jupyter-spark_1
 
 ## How to run a DAG to test
@@ -107,7 +107,7 @@ Jupyter Notebook: http://127.0.0.1:8888
     ![](./doc/airflow_spark_connection.png "Airflow Spark connection")
 
 3. Run the spark-test DAG
-   
+
 4. Check the DAG log for the task spark_job. You will see the result printed in the log
    ![](./doc/airflow_dag_log.png "Airflow log")
 
@@ -186,9 +186,3 @@ More info at: https://github.com/puckel/docker-airflow#build
 
     Stop Containers:
     $ docker-compose -f <compose-file.yml> down --remove-orphans
-    
-# Extras
-## Spark + Postgres sample
-
-* The DAG [spark-postgres.py](dags/spark-postgres.py) loads [movies.csv](spark/resources/data/movies.csv) and [ratings.csv](spark/resources/data/ratings.csv) data into Postgres tables and query these tables to generate a list of top 10 movies with more rates.
-  * This DAG runs the load-postgres.py and read-postgres.py applications. These applications are also available in the notebooks [load-postgres-notebook.ipynb](notebooks/load-postgres-notebook.ipynb) and [read-postgres-notebook.ipynb](notebooks/read-postgres-notebook.ipynb).

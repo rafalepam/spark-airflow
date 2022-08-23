@@ -1,3 +1,43 @@
+# from datetime import datetime, timedelta
+#
+# from airflow import DAG
+# from airflow.providers.papermill.operators.papermill import PapermillOperator
+#
+# default_args = {
+#     'owner': 'airflow',
+#     'depends_on_past': False,
+#     'email_on_failure': False,
+#     'email_on_retry': False,
+#     'retries': 0,
+#     'retry_delay': timedelta(minutes=1)
+# }
+#
+# with DAG(
+#     dag_id='example_papermill_operator',
+#     default_args=default_args,
+#     schedule_interval='0 0 * * *',
+#     start_date=datetime(2021, 1, 1),
+#     # template_searchpath='/usr/local/airflow/include',
+#     catchup=False
+# ) as dag_1:
+#
+#     notebook_task = PapermillOperator(
+#         task_id="run_example_notebook",
+#         input_nb="/home/jovyan/work/data/use_case_3.ipynb",
+#         output_nb="include/out-{{ execution_date }}.ipynb",
+#         parameters={"execution_date": "{{ execution_date }}"},
+#     )
+
+
+
+
+
+
+
+
+
+
+
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
@@ -9,6 +49,7 @@ from datetime import datetime, timedelta
 spark_master = "spark://spark:7077"
 spark_app_name = "Spark Hello World"
 file_path = "/usr/local/spark/resources/data/airflow.cfg"
+# file_path = "/home/jovyan/work/data/airflow.cfg"
 
 ###############################################
 # DAG Definition
@@ -22,14 +63,14 @@ default_args = {
     "email": ["airflow@airflow.com"],
     "email_on_failure": False,
     "email_on_retry": False,
-    "retries": 1,
+    "retries": 0,
     "retry_delay": timedelta(minutes=1)
 }
 
 dag = DAG(
-        dag_id="spark-test", 
+        dag_id="spark-test",
         description="This DAG runs a simple Pyspark app.",
-        default_args=default_args, 
+        default_args=default_args,
         schedule_interval=timedelta(1)
     )
 
